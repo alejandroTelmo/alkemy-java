@@ -8,14 +8,16 @@ public class MovieDTO {
     String title;
     LocalDate creationDate;
 
+    Integer rating;
+
     public MovieDTO() {
     }
 
-    public MovieDTO(Long id, String image, String title, LocalDate creationDate) {
-        this.id = id;
+    public MovieDTO(String image, String title, LocalDate creationDate, Integer rating) {
         this.image = image;
         this.title = title;
         this.creationDate = creationDate;
+        this.rating = rating;
     }
 
     public Long getId() {
@@ -48,5 +50,13 @@ public class MovieDTO {
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 }

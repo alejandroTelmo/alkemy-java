@@ -8,8 +8,5 @@ import java.util.Optional;
 
 public interface IGenreService {
     void create(GenreDTO genreDTO);
-    void delete(Long id);
-    void update(GenreDTO genreDTO);
-    Optional<GenreDTO> findOneById(Long id);
-    List<GenreDTO> allGenres();
+
 }

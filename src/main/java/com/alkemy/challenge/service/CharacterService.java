@@ -2,13 +2,16 @@ package com.alkemy.challenge.service;
 
 import com.alkemy.challenge.dto.CharacterDTO;
 import com.alkemy.challenge.entity.Character;
+import com.alkemy.challenge.exception.ResourceNotFoundException;
 import com.alkemy.challenge.repository.CharacterRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CharacterService implements ICharacterService{
 
     final CharacterRepository characterRepository;
@@ -20,22 +23,33 @@ public class CharacterService implements ICharacterService{
     }
 
     @Override
-    public void create(CharacterDTO characterDTO) {
-        if(characterDTO.getId()==null)
-           characterRepository.save(mapper.convertValue(characterDTO,Character.class));
-    }
-
-    @Override
-    public void delete(Long id) {
-        if (characterRepository.findById(id).isPresent())
-            characterRepository.deleteById(id);
-    }
-
-
-    @Override
-    public void update(CharacterDTO characterDTO) {
-        if (characterDTO.getId()!=null && characterRepository.findById(characterDTO.getId()).isPresent() )
+    public CharacterDTO create(CharacterDTO characterDTO) throws ResourceNotFoundException {
+        if(characterDTO.getId()==null){
             characterRepository.save(mapper.convertValue(characterDTO,Character.class));
+            return characterDTO;
+        }else
+            throw new ResourceNotFoundException("No se pudo crear el nuevo personaje");
+    }
+
+    @Override
+    public void delete(Long id) throws ResourceNotFoundException {
+        if (characterRepository.findById(id).isPresent()){
+            characterRepository.deleteById(id);
+        }else
+            throw new ResourceNotFoundException("No se encontro el personaje con el id : "+id+" .");
+
+    }
+
+
+    @Override
+    public CharacterDTO update(CharacterDTO characterDTO) throws ResourceNotFoundException {
+        if (characterDTO.getId()!=null && characterRepository.findById(characterDTO.getId()).isPresent() ){
+            characterRepository.save(mapper.convertValue(characterDTO,Character.class));
+            return characterDTO;
+        }else
+            throw new ResourceNotFoundException("No tiene id o el id pasado no coincide con el id pasado dentro del objeto.");
+
+
 
     }
 
@@ -51,6 +65,6 @@ public class CharacterService implements ICharacterService{
         for (Character c:characters){
             characterDTOS.add(mapper.convertValue(c,CharacterDTO.class));
         }
-        return null;
+        return characterDTOS;
     }
 }
