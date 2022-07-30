@@ -1,6 +1,10 @@
 package com.alkemy.challenge.dto;
 
+import com.alkemy.challenge.entity.Character;
+
+
 import java.time.LocalDate;
+import java.util.List;
 
 public class MovieDTO {
     Long id;
@@ -10,14 +14,18 @@ public class MovieDTO {
 
     Integer rating;
 
+
+    List<Character> characterList;
+
     public MovieDTO() {
     }
 
-    public MovieDTO(String image, String title, LocalDate creationDate, Integer rating) {
+    public MovieDTO(String image, String title, LocalDate creationDate, Integer rating, List<Character> characterList) {
         this.image = image;
         this.title = title;
         this.creationDate = creationDate;
         this.rating = rating;
+        this.characterList = characterList;
     }
 
     public Long getId() {
@@ -59,4 +67,14 @@ public class MovieDTO {
     public void setRating(Integer rating) {
         this.rating = rating;
     }
+
+    public List<Character> getCharacterList() {
+        return characterList;
+    }
+
+    public void setCharacterList(List<Character> characterList) {
+        this.characterList = characterList;
+    }
+
+
 }

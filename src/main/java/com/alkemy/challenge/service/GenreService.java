@@ -2,13 +2,12 @@ package com.alkemy.challenge.service;
 
 import com.alkemy.challenge.dto.GenreDTO;
 import com.alkemy.challenge.entity.Genre;
+import com.alkemy.challenge.exception.ResourceNotFoundException;
 import com.alkemy.challenge.repository.GenreRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+
 @Service
 public class GenreService implements IGenreService{
 
@@ -21,9 +20,11 @@ public class GenreService implements IGenreService{
     }
 
     @Override
-    public void create(GenreDTO genreDTO) {
+    public void create(GenreDTO genreDTO) throws ResourceNotFoundException {
         if (genreDTO.getId()==null)
             genreRepository.save(mapper.convertValue(genreDTO, Genre.class));
+        else
+            throw new ResourceNotFoundException("El objeto tiene id, no debe tenerlo.");
     }
 
 

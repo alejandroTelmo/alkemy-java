@@ -2,13 +2,15 @@ package com.alkemy.challenge.service;
 
 import com.alkemy.challenge.dto.MovieDTO;
 import com.alkemy.challenge.entity.Movie;
+import com.alkemy.challenge.exception.ResourceNotFoundException;
 import com.alkemy.challenge.repository.MovieRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class MovieService implements IMovieService{
 
     MovieRepository movieRepository;
@@ -20,9 +22,11 @@ public class MovieService implements IMovieService{
     }
 
     @Override
-    public void create(MovieDTO movieDTO) {
+    public void create(MovieDTO movieDTO) throws ResourceNotFoundException {
         if (movieDTO.getId()==null)
             movieRepository.save(mapper.convertValue(movieDTO, Movie.class));
+        else
+            throw new ResourceNotFoundException("El objeto pasado tiene id, no debe tenerlo.");
 
     }
 

@@ -1,7 +1,10 @@
 package com.alkemy.challenge.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "movies")
@@ -12,17 +15,25 @@ public class Movie {
     String image;
     String title;
     LocalDate creationDate;
-
     Integer rating;
+    @ManyToMany
+    @JoinTable(
+            name = "movie_character",
+            joinColumns = @JoinColumn(name ="movie_id" ),
+            inverseJoinColumns = @JoinColumn(name ="character_id" )
+            )
+    List<Character> characterList;
+
 
     public Movie() {
     }
 
-    public Movie(String image, String title, LocalDate creationDate, Integer rating) {
+    public Movie(String image, String title, LocalDate creationDate, Integer rating, List<Character> characterList) {
         this.image = image;
         this.title = title;
         this.creationDate = creationDate;
         this.rating = rating;
+        this.characterList = characterList;
     }
 
     public Long getId() {
@@ -63,5 +74,26 @@ public class Movie {
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public List<Character> getCharacterList() {
+        return characterList;
+    }
+
+    public void setCharacterList(List<Character> characterList) {
+        this.characterList = characterList;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", image='" + image + '\'' +
+                ", title='" + title + '\'' +
+                ", creationDate=" + creationDate +
+                ", rating=" + rating +
+                '}';
     }
 }

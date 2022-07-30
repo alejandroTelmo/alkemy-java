@@ -10,7 +10,7 @@ import org.springframework.web.context.request.WebRequest;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    private static final Logger logger= Logger.getLogger(GlobalExceptionHandler.class);
+    private final static  Logger logger= Logger.getLogger(GlobalExceptionHandler.class);
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> allErrors(Exception ex, WebRequest req){
         logger.error((ex.getMessage()));

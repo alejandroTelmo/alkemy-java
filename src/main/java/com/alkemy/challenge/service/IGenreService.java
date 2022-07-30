@@ -2,11 +2,11 @@ package com.alkemy.challenge.service;
 
 
 import com.alkemy.challenge.dto.GenreDTO;
+import com.alkemy.challenge.exception.ResourceNotFoundException;
 
-import java.util.List;
-import java.util.Optional;
+
 
 public interface IGenreService {
-    void create(GenreDTO genreDTO);
+    void create(GenreDTO genreDTO) throws ResourceNotFoundException;
 
 }

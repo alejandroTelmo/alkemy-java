@@ -1,5 +1,10 @@
 package com.alkemy.challenge.dto;
 
+import com.alkemy.challenge.entity.Movie;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class CharacterDTO {
     Long id;
     String image;
@@ -7,6 +12,7 @@ public class CharacterDTO {
     Integer age;
     Double weight;
     String history;
+
 
     public CharacterDTO() {
     }
@@ -66,4 +72,6 @@ public class CharacterDTO {
     public void setHistory(String history) {
         this.history = history;
     }
+
+
 }

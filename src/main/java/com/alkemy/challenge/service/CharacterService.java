@@ -1,6 +1,7 @@
 package com.alkemy.challenge.service;
 
 import com.alkemy.challenge.dto.CharacterDTO;
+import com.alkemy.challenge.dto.MovieDTO;
 import com.alkemy.challenge.entity.Character;
 import com.alkemy.challenge.exception.ResourceNotFoundException;
 import com.alkemy.challenge.repository.CharacterRepository;
@@ -47,15 +48,16 @@ public class CharacterService implements ICharacterService{
             characterRepository.save(mapper.convertValue(characterDTO,Character.class));
             return characterDTO;
         }else
-            throw new ResourceNotFoundException("No tiene id o el id pasado no coincide con el id pasado dentro del objeto.");
-
-
+            throw new ResourceNotFoundException("No tiene id o el id no coincide con ningún personaje.");
 
     }
 
     @Override
-    public Optional<CharacterDTO> findOneById(Long id) {
-        return Optional.of(mapper.convertValue(characterRepository.findById(id),CharacterDTO.class));
+    public Optional<CharacterDTO> findOneById(Long id) throws ResourceNotFoundException {
+        if(characterRepository.findById(id).isPresent())
+            return Optional.of(mapper.convertValue(characterRepository.findById(id),CharacterDTO.class));
+        else
+            throw new ResourceNotFoundException("No existe el personaje con id : "+id);
     }
 
     @Override
@@ -66,5 +68,30 @@ public class CharacterService implements ICharacterService{
             characterDTOS.add(mapper.convertValue(c,CharacterDTO.class));
         }
         return characterDTOS;
+    }
+
+    @Override
+    public Optional<CharacterDTO> findByName(String name) throws ResourceNotFoundException {
+        if (characterRepository.findCharacterByName(name).isPresent())
+            return Optional.of(mapper.convertValue(characterRepository.findCharacterByName(name),CharacterDTO.class));
+        else
+            throw new ResourceNotFoundException("No se encontro ningun personaje con el nombre : "+name+" .");
+    }
+
+    @Override
+    public Optional<CharacterDTO> findByAge(Integer age) throws ResourceNotFoundException {
+        if (characterRepository.findCharacterByAge(age).isPresent())
+            return Optional.of(mapper.convertValue(characterRepository.findCharacterByAge(age),CharacterDTO.class));
+        else
+            throw new ResourceNotFoundException("No se encontro ningun personaje con la edad de : "+age+" .");
+    }
+
+    @Override
+    public Optional<CharacterDTO> findByWeight(Double weight) throws ResourceNotFoundException {
+        if (characterRepository.findCharacterByWeight(weight).isPresent())
+            return Optional.of(mapper.convertValue(characterRepository.findCharacterByWeight(weight),CharacterDTO.class));
+        else
+            throw new ResourceNotFoundException("No se encontro ningun personaje con el peso : "+weight+" .");
+
     }
 }

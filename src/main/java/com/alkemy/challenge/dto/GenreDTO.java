@@ -1,10 +1,14 @@
 package com.alkemy.challenge.dto;
 
+import com.alkemy.challenge.entity.Movie;
+
+import java.util.List;
+
 public class GenreDTO {
     Long id;
     String name;
     String image;
-
+    List<Movie> moviesList;
     public GenreDTO() {
     }
 
@@ -35,5 +39,13 @@ public class GenreDTO {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<Movie> getMoviesList() {
+        return moviesList;
+    }
+
+    public void setMoviesList(List<Movie> moviesList) {
+        this.moviesList = moviesList;
     }
 }

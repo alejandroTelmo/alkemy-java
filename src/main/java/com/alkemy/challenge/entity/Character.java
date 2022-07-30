@@ -1,7 +1,8 @@
 package com.alkemy.challenge.entity;
 
+
 import javax.persistence.*;
-import java.util.List;
+
 
 @Entity
 @Table(name = "characters")
@@ -14,22 +15,18 @@ public class Character {
     Integer age;
     Double weight;
     String history;
-    @ManyToMany
-    @JoinTable(name = "character_movie",
-    joinColumns = @JoinColumn(name = "character_id"),
-    inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    List<Movie> moviesList;
+
 
     public Character() {
     }
 
-    public Character(String image, String name, Integer age, Double weight, String history, List<Movie> moviesList) {
+    public Character(String image, String name, Integer age, Double weight, String history) {
         this.image = image;
         this.name = name;
         this.age = age;
         this.weight = weight;
         this.history = history;
-        this.moviesList = moviesList;
+
     }
 
     public Long getId() {
@@ -80,11 +77,18 @@ public class Character {
         this.history = history;
     }
 
-    public List<Movie> getMoviesList() {
-        return moviesList;
-    }
 
-    public void setMoviesList(List<Movie> moviesList) {
-        this.moviesList = moviesList;
+
+    @Override
+    public String toString() {
+        return "Character{" +
+                "id=" + id +
+                ", image='" + image + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", weight=" + weight +
+                ", history='" + history + '\'' +
+
+                '}';
     }
 }
